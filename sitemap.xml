@@ -1,70 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://searsappliancerepairnyc.com/</loc>
     <lastmod>2025-05-06</lastmod>
     <priority>1.00</priority>
   </url>
-
-  <url>
-    <loc>https://searsappliancerepairnyc.com/about</loc>
-    <lastmod>2025-05-06</lastmod>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://searsappliancerepairnyc.com/contact</loc>
-    <lastmod>2025-05-06</lastmod>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://searsappliancerepairnyc.com/services</loc>
-    <lastmod>2025-05-06</lastmod>
-    <priority>0.90</priority>
-  </url>
-
-  <url>
-    <loc>https://searsappliancerepairnyc.com/washer-repair</loc>
-    <lastmod>2025-05-06</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://searsappliancerepairnyc.com/dryer-repair</loc>
-    <lastmod>2025-05-06</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://searsappliancerepairnyc.com/refrigerator-repair</loc>
-    <lastmod>2025-05-06</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://searsappliancerepairnyc.com/oven-repair</loc>
-    <lastmod>2025-05-06</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://searsappliancerepairnyc.com/dishwasher-repair</loc>
-    <lastmod>2025-05-06</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://searsappliancerepairnyc.com/locations</loc>
-    <lastmod>2025-05-06</lastmod>
-    <priority>0.75</priority>
-  </url>
-
-  <url>
-    <loc>https://searsappliancerepairnyc.com/faq</loc>
-    <lastmod>2025-05-06</lastmod>
-    <priority>0.70</priority>
-  </url>
-
 </urlset>
