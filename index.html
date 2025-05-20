@@ -11,7 +11,6 @@
     <link rel="canonical" href="https://searsappliancerepairnyc.com">
     <link rel="sitemap" href="https://searsappliancerepairnyc.com/sitemap.xml">
 
-    <!-- New meta tags -->
     <meta property="og:title" content="Sears Appliance Repair NYC - Expert Repair Services in Manhattan">
     <meta property="og:description" content="Fast, reliable Blomberg appliance repair services in Manhattan. Same-day service for washing machines, dryers, ovens, dishwashers, and more. Call (718) 717-1706!">
     <meta property="og:image" content="https://searsappliancerepairnyc.com/og.png">
@@ -21,14 +20,25 @@
     <meta property="og:url" content="https://searsappliancerepairnyc.com">
     <meta property="og:type" content="website">
 
-    <!-- New link tag -->
     <link rel="icon" type="image/x-icon" href="https://searsappliancerepairnyc.com/favicon.ico">
 
-    <!-- Rest of your head content -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta name="google-site-verification" content="vS4VPKtfblnGrVe6JvSjiUbMnRV1Mi9-HpWASzhFQFs" />
     <link rel="icon" href="https://searsappliancerepairnyc.com/sears-appliance-repair/sears%20favicon.png" type="image/png">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            try {
+                emailjs.init({
+                    publicKey: "zfCrLmZU8eK9CuZcs" // Your EmailJS Public Key
+                });
+                console.log("EmailJS initialized successfully");
+            } catch (error) {
+                console.error("Failed to initialize EmailJS:", error);
+            }
+        })();
+    </script>
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box;}
         html, body {height: 100%; margin: 0; padding: 0; overflow-y: auto;}
@@ -76,7 +86,10 @@
         @keyframes fadeIn {0% {opacity: 0; transform: translateY(20px);} 100% {opacity: 1; transform: translateY(0);}}
         .force-reflow {min-height: fit-content;}
         .section h2 {font-family: 'Montserrat', sans-serif; font-size: 2rem; margin-bottom: 1.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);}
-        #home h1, #services h2, #service-areas h2, #brands h2, #additional-services h2, #reviews h2, #about h2, #contact h2, #guarantee-policy h2 {color: #000000;}
+        /* General section h2 is black, specific overrides needed */
+        #home h1, #service-areas h2, #brands h2, #additional-services h2, #reviews h2, #about h2, #guarantee-policy h2 {color: #000000;}
+        #services h2, #contact h2 {color: #000000;} /* Keep #services h2 black as per current code */
+        
         .section h3 {font-family: 'Montserrat', sans-serif; font-size: 1.2rem; color: #1E3A8A; margin-bottom: 0.5rem;}
         .services-grid h3 {color: #FFD700; display: inline; vertical-align: middle;}
         .hero {
@@ -115,13 +128,55 @@
         .cta-button:hover {background: linear-gradient(45deg, #1E40AF, #06B6D4); transform: scale(1.05); box-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 0 0 15px rgba(0, 183, 255, 0.5); animation: pulse 1.5s infinite;}
         .cta-button.active {background: linear-gradient(45deg, #1E40AF, #06B6D4);}
         @keyframes pulse {0% {box-shadow: 0 0 0 0 rgba(0, 183, 255, 0.5);} 70% {box-shadow: 0 0 0 10px rgba(0, 183, 255, 0);} 100% {box-shadow: 0 0 0 0 rgba(0, 183, 255, 0);}}
-        .service-item .cta-button {display: flex; align-items: center; justify-content: center; gap: 0.5rem;}
-        .service-item .cta-button .icon {font-size: 1.2rem; vertical-align: middle;}
-        .service-item .cta-button:hover .icon {color: #FFD700;}
-        @media (max-width: 768px) {
-            .service-item .cta-button .icon {font-size: 1rem;}
-            .service-item .cta-button img.icon {width: 20px; height: 20px;}
+
+        /* --- Updated Styles for Service Buttons --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+            justify-items: center;
+            align-items: stretch; /* Crucial for making service-items in a row the same height */
         }
+
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            height: 100%; /* Make service-item take full height of its grid cell */
+        }
+
+        .service-item .cta-button {
+            display: flex;
+            flex-direction: column; /* Stack icon and text vertically */
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem; /* Space between icon and text */
+            width: 100%; /* Make button take full width of its service-item */
+            min-height: 100px; /* Reduced by ~15% from 120px */
+            text-align: center;
+            padding: 0.7rem 0.4rem; /* Adjusted padding accordingly */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            white-space: normal; /* Allow text to wrap within the button */
+            word-break: break-word; /* Ensure long words break */
+            font-size: 0.9rem; /* Adjusted font size */
+            line-height: 1.2; /* Adjusted line height for better spacing */
+        }
+
+        .service-item .cta-button h3 {
+            margin: 0; /* Remove default margin from h3 */
+            font-size: 0.95rem; /* Ensure consistent font size for all h3s in buttons, adjusted */
+        }
+
+        .service-item .cta-button .icon {
+            font-size: 1.5rem; /* Reduced by ~15% from 1.8rem */
+            vertical-align: middle;
+        }
+
+        /* --- End Updated Styles for Service Buttons --- */
+
         .section-content {display: none; margin-top: 1.5rem; padding: 1rem; background: linear-gradient(135deg, #E0F7FA, #F0F9FF); border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); position: relative;}
         .section-content.active {display: block;}
         .section-content p, .section-content ul {font-size: 1rem; margin-bottom: 1rem;}
@@ -129,14 +184,7 @@
         #reviewsContent {width: 100%; box-sizing: border-box; max-height: 600px; overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y;}
         .widget-wrapper {position: relative; width: 100%; overflow: auto;}
         .elfsight-app-2942fb52-4463-41bc-bc83-d831b9da6f0e {max-width: 100%; margin: 0 auto; width: 100%; box-sizing: border-box;}
-        .services-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; padding: 1rem; justify-items: center;}
-        @media (min-width: 769px) {
-            .services-grid {grid-template-columns: repeat(4, 1fr);}
-        }
-        @media (max-width: 768px) {
-            .services-grid {grid-template-columns: 1fr;}
-        }
-        .service-item {display: flex; flex-direction: column; align-items: center; gap: 0.5rem; width: 100%;}
+        
         .service-detail {display: none; margin-top: 0.5rem; padding: 1rem; background: linear-gradient(135deg, #E0F7FA, #F0F9FF); border: 1px solid #06B6D4; border-radius: 8px; text-align: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 100%;}
         .service-detail.active {display: block;}
         .brands-grid {display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 1.5rem; justify-items: center;}
@@ -225,9 +273,33 @@
         #guarantee-policy .section-content::before {content: "✔"; position: absolute; top: -1rem; left: 50%; transform: translateX(-50%); background: #FFD700; color: #1E3A8A; font-size: 1.5rem; font-weight: bold; padding: 0.5rem 1rem; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);}
         #additional-services .section-content::before {content: "🔧"; position: absolute; top: -1rem; left: 50%; transform: translateX(-50%); background: #FFD700; color: #1E3A8A; font-size: 1.5rem; font-weight: bold; padding: 0.5rem 1rem; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);}
         #guarantee-policy .section-content p, #additional-services .section-content li {font-size: 1rem; margin-bottom: 1rem; line-height: 1.8;}
-        #guarantee-policy .section-content p strong, #additional-services .section-content li strong {color: #1E3A8A; font-weight: 600;}
+        /* Removed strong from text within guarantee policy list items */
         #guarantee-policy .section-content p em, #additional-services .section-content li em {font-style: italic; color: #3B82F6;}
         #guarantee-policy .section-content p:last-child {font-weight: 600; color: #1E3A8A; text-align: center; margin-top: 1.5rem;}
+        
+        /* New styles for guarantee policy list items */
+        #guarantee-policy .section-content ul {
+            list-style: none; /* Remove default bullet points */
+            padding-left: 0;
+            text-align: left;
+            margin: 1rem auto;
+            max-width: 700px;
+        }
+        #guarantee-policy .section-content ul li {
+            position: relative;
+            padding-left: 1.8rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.5;
+        }
+        #guarantee-policy .section-content ul li::before {
+            content: "✓"; /* Checkmark icon */
+            position: absolute;
+            left: 0;
+            color: #06B6D4; /* Blue color for checkmark */
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
         @media (max-width: 768px) {
             #guarantee-policy .section-content, #additional-services .section-content {padding: 1rem;}
             #guarantee-policy .section-content::before, #additional-services .section-content::before {font-size: 1.2rem; padding: 0.3rem 0.8rem;}
@@ -310,8 +382,244 @@
 
         @media (max-width: 768px) {
             .review-badge {
-                font-size: 14px;
+                font-size: 1.1rem;
                 padding: 10px 16px;
+            }
+        }
+
+        /* Responsive adjustments for service buttons */
+        @media (min-width: 769px) {
+            .services-grid {
+                grid-template-columns: repeat(4, 1fr); /* 4 columns on larger screens */
+            }
+        }
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+            }
+            .service-item .cta-button {
+                min-height: 85px; /* Adjusted further for tablets */
+                font-size: 0.85rem;
+            }
+            .service-item .cta-button h3 {
+                font-size: 0.85rem;
+            }
+            .service-item .cta-button .icon {
+                font-size: 1.3rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr; /* Stack buttons on very small screens */
+            }
+            .service-item .cta-button {
+                min-height: 70px; /* Adjusted further for mobile */
+                font-size: 0.9rem;
+            }
+            .service-item .cta-button .icon {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Contact Form Styles (adjusted to match site's theme) */
+        .contact-form-section {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1.5rem; /* Adjusted padding for better spacing */
+            background: linear-gradient(135deg, #1E3A8A, #06B6D4); /* Adjusted to match site's blue gradient */
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 1s ease-out;
+        }
+        .contact-form-section h2 {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif; /* Consistent font */
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            color: #FFFFFF; /* Now explicitly set to white */
+        }
+        .contact-form-section .expect-text {
+            text-align: center;
+            font-size: 0.95rem; /* Slightly larger for readability */
+            margin-bottom: 1.5rem; /* More space before form */
+            color: #E0F7FA; /* Lighter text color */
+            line-height: 1.4;
+        }
+        .contact-form {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem; /* Adjusted padding */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* Space between form groups */
+        }
+        .contact-form:hover {
+            transform: translateY(-5px);
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        .form-group label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1E3A8A; /* Dark blue for labels */
+            margin-bottom: 0.4rem; /* More space below labels */
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.85rem; /* Slightly more padding */
+            font-size: 0.95rem; /* Slightly larger font */
+            border: 1px solid #06B6D4; /* Border matching site's blue */
+            border-radius: 8px;
+            background: #fff;
+            transition: all 0.3s ease;
+            color: #1F2937; /* Default text color */
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFD700; /* Gold border on focus */
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.6); /* Gold glow on focus */
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px; /* Slightly taller textarea */
+        }
+        .form-group .error-message {
+            color: #B91C1C; /* Red error message */
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .form-group.invalid .error-message {
+            display: block;
+        }
+        .form-group.invalid input,
+        .form-group.invalid select,
+        .form-group.invalid textarea {
+            border-color: #B91C1C;
+        }
+        .form-button {
+            display: inline-block;
+            padding: 1rem 2rem; /* Larger padding for button */
+            background: linear-gradient(45deg, #FFD700, #E6B800); /* Gold gradient for button */
+            color: #1E3A8A; /* Dark blue text on button */
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif; /* Consistent font */
+            font-weight: 700; /* Bolder text */
+            font-size: 1.1rem; /* Larger font size */
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        .form-button:hover {
+            background: linear-gradient(45deg, #E6B800, #CC9900); /* Darker gold on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Pop-Up Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #1E3A8A, #06B6D4); /* Consistent blue gradient */
+            color: #fff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            border: 2px solid #FFD700; /* Gold border */
+            animation: popIn 0.3s ease-out;
+        }
+        .modal.show {
+            display: block;
+        }
+        @keyframes popIn {
+            0% {transform: translate(-50%, -50%) scale(0.8); opacity: 0;}
+            100% {transform: translate(-50%, -50%) scale(1); opacity: 1;}
+        }
+        .modal p {
+            font-size: 1.1rem; /* Larger font for clarity */
+            margin-bottom: 1rem;
+            color: #E0F7FA; /* Lighter text color */
+        }
+        .modal .close-button {
+            display: inline-block;
+            padding: 0.6rem 1.2rem; /* Adjusted padding */
+            background: #FFD700; /* Gold close button */
+            color: #1E3A8A; /* Dark blue text */
+            font-weight: 600;
+            font-size: 1rem; /* Larger font */
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border: none; /* Remove border */
+        }
+        .modal .close-button:hover {
+            background: #E6C200; /* Darker gold on hover */
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
+            z-index: 999;
+        }
+        .modal-overlay.show {
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .modal {
+                width: 90%;
+                padding: 1rem;
+            }
+            .modal p {
+                font-size: 1rem;
+            }
+            .modal .close-button {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+            .contact-form-section {padding: 1rem;}
+            .contact-form-section h2 {font-size: 1.8rem;}
+            .contact-form-section .expect-text {font-size: 0.85rem;}
+            .contact-form {padding: 1rem; gap: 0.75rem;}
+            .form-group label {font-size: 0.95rem;}
+            .form-group input, .form-group select, .form-group textarea {font-size: 0.9rem; padding: 0.75rem;}
+            .form-button {padding: 0.8rem 1.5rem; font-size: 1rem;}
+        }
+        @media (max-width: 480px) {
+            .contact-form-section {padding: 0.75rem;}
+            .contact-form-section h2 {font-size: 1.5rem;}
+            .contact-form-section .expect-text {font-size: 0.8rem;}
+            .form-group label {font-size: 0.9rem;}
+            .form-group input, .form-group select, .form-group textarea {font-size: 0.85rem; padding: 0.6rem;}
+            .form-button {padding: 0.7rem 1.2rem; font-size: 0.9rem;}
+            .modal p {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -352,18 +660,17 @@
 
             <section class="section" id="services" role="region" aria-label="Our Services">
                 <h2>Our Appliance Repair Services</h2>
-                <button class="cta-button" onclick="toggleSection('servicesContent')" aria-label="Toggle services content">View Services</button>
-                <div class="section-content" id="servicesContent">
+                <div class="section-content active" id="servicesContent">
                     <div class="services-grid">
                         <div class="service-item">
                             <button class="cta-button" onclick="toggleSection('washingMachineContent')" aria-label="Toggle washing machine repair details">
                                 <span class="icon">🧼</span>
-                                <h3>Washing Machine Repair</h3>
+                                <h3>Washing Machine Repair Service</h3>
                             </button>
                             <div class="service-detail" id="washingMachineContent">
                                 <p>Expert service for all models – all-in-one combo, top load, front load, stacked laundry centers.</p>
                                 <p>Washing Machine Repair Service in Manhattan, Brooklyn, Queens & The Bronx</p>
-                                <button class="cta-button" onclick="toggleDropdown('washingMachineDropdown')">Learn More</button>
+                                <button class="cta-button" id="washingMachineDropdownButton" onclick="toggleDropdown('washingMachineDropdown')">Learn More</button>
                                 <div id="washingMachineDropdown" class="dropdown-content" style="display: none;">
                                     <h3>Washing Machine Repair Services in Manhattan, Brooklyn, Queens & The Bronx</h3>
                                     <p>We provide specialized washing machine repair services throughout Manhattan, Brooklyn, Queens, and The Bronx, delivering swift and reliable solutions for residents. Our local team is dedicated to restoring your washing machines, whether front load, top load, residential, commercial, stacked laundry centers, or combo units, to full functionality with same-day service, ensuring your laundry routine stays on track. Whether you’re in a Manhattan family home, an apartment, a business, or a residence, we offer precise repairs to keep your washers performing at their best.</p>
@@ -376,10 +683,10 @@
                                     </ul>
                                     <p>Benefits of Our Washing Machine Repair:</p>
                                     <ul>
-                                        <li><strong>Fast Turnaround:</strong> We value your time. That’s why we offer speedy service with same-day availability, getting your washing machine back up and running without delay.</li>
-                                        <li><strong>Trained Specialists:</strong> Our technicians are highly skilled in washing machine systems, using genuine parts to ensure repairs are built to last.</li>
-                                        <li><strong>Community-Centered Service:</strong> As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
-                                        <li><strong>Thorough Problem-Solving:</strong> We tackle everything from belt failures to digital control glitches, ensuring your washing machine runs reliably.</li>
+                                        <li>Fast Turnaround: We value your time. That’s why we offer speedy service with same-day availability, getting your washing machine back up and running without delay.</li>
+                                        <li>Trained Specialists: Our technicians are highly skilled in washing machine systems, using genuine parts to ensure repairs are built to last.</li>
+                                        <li>Community-Centered Service: As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
+                                        <li>Thorough Problem-Solving: We tackle everything from belt failures to digital control glitches, ensuring your washing machine runs reliably.</li>
                                     </ul>
                                     <p>Types of Washers We Repair:</p>
                                     <ul>
@@ -400,12 +707,12 @@
                         <div class="service-item">
                             <button class="cta-button" onclick="toggleSection('dryerContent')" aria-label="Toggle dryer repair details">
                                 <span class="icon">🧦</span>
-                                <h3>Dryer Repair</h3>
+                                <h3>Dryer Repair Service</h3>
                             </button>
                             <div class="service-detail" id="dryerContent">
                                 <p>Expert Service for All Models: Gas, Electric, Vented, Ventless, Heat Pump, Top-Load, Front-Load, Stackable & All-in-One Combo Units.</p>
                                 <p>Dryer Repair Service in Manhattan, Brooklyn, Queens & The Bronx</p>
-                                <button class="cta-button" onclick="toggleDropdown('dryerDropdown')">Learn More</button>
+                                <button class="cta-button" id="dryerDropdownButton" onclick="toggleDropdown('dryerDropdown')">Learn More</button>
                                 <div id="dryerDropdown" class="dropdown-content" style="display: none;">
                                     <h3>Dryer Repair Services in Manhattan, Brooklyn, Queens & The Bronx</h3>
                                     <p>We provide specialized dryer repair services throughout Manhattan, Brooklyn, Queens, and The Bronx, delivering swift and reliable solutions for residents. Our local team is dedicated to restoring your dryers, whether gas, electric, vented, ventless, heat pump, top-load, front-load, stackable, or all-in-one combo units, to full functionality with same-day service, ensuring your laundry routine stays on track. Whether you’re in a Manhattan family home, an apartment, a business, or a residence, we offer precise repairs to keep your dryer performing at its best.</p>
@@ -418,10 +725,10 @@
                                     </ul>
                                     <p>Benefits of Our Dryer Repair:</p>
                                     <ul>
-                                        <li><strong>Fast Turnaround:</strong> We value your time. That’s why we offer speedy service with same-day availability, getting your dryer back up and running without delay.</li>
-                                        <li><strong>Trained Specialists:</strong> Our technicians are highly skilled in dryer systems, using genuine parts to ensure repairs are built to last.</li>
-                                        <li><strong>Community-Centered Service:</strong> As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
-                                        <li><strong>Thorough Problem-Solving:</strong> We tackle everything from heating element failures to digital control glitches, ensuring your dryer runs reliably.</li>
+                                        <li>Fast Turnaround: We value your time. That’s why we offer speedy service with same-day availability, getting your dryer back up and running without delay.</li>
+                                        <li>Trained Specialists: Our technicians are highly skilled in dryer systems, using genuine parts to ensure repairs are built to last.</li>
+                                        <li>Community-Centered Service: As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
+                                        <li>Thorough Problem-Solving: We tackle everything from heating element failures to digital control glitches, ensuring your dryer runs reliably.</li>
                                     </ul>
                                     <p>Types of Dryers We Repair:</p>
                                     <ul>
@@ -430,7 +737,7 @@
                                         <li><strong>Vented Dryers:</strong> Restoring home units with proper ventilation for daily family use with quick, precise repairs.</li>
                                         <li><strong>Ventless Dryers:</strong> Servicing units that do not require external ventilation, ideal for apartments or small spaces.</li>
                                         <li><strong>Heat Pump Dryers:</strong> Repairing energy-efficient dryers that use heat pump technology for improved energy savings.</li>
-                                        <li><strong>Stackable Dryers:</strong> Handling compact units designed for vertical stacking with other appliances.</li>
+                                        <li><strong>Stacked Laundry Centers:</strong> Handling compact units designed for vertical stacking with other appliances.</li>
                                         <li><strong>All-in-One Combo Dryers:</strong> Addressing complex dual-function repairs for combined washer-dryer units.</li>
                                     </ul>
                                     <p>Supporting Manhattan, Brooklyn, Queens & The Bronx Homes and Businesses:</p>
@@ -443,12 +750,12 @@
                         <div class="service-item">
                             <button class="cta-button" onclick="toggleSection('ovenContent')" aria-label="Toggle oven repair details">
                                 <span class="icon">🔥</span>
-                                <h3>Oven Repair</h3>
+                                <h3>Oven Repair Service</h3>
                             </button>
                             <div class="service-detail" id="ovenContent">
                                 <p>Expert Service For All Models: Gas, Electric, Wall, Double, Dual Fuel, Induction & Freestanding Models.</p>
                                 <p>Oven Repair Service in Manhattan, Brooklyn, Queens & The Bronx</p>
-                                <button class="cta-button" onclick="toggleDropdown('ovenDropdown')">Learn More</button>
+                                <button class="cta-button" id="ovenDropdownButton" onclick="toggleDropdown('ovenDropdown')">Learn More</button>
                                 <div id="ovenDropdown" class="dropdown-content" style="display: none;">
                                     <h3>Oven Repair Services in Manhattan, Brooklyn, Queens & The Bronx</h3>
                                     <p>We provide specialized oven repair services throughout Manhattan, Brooklyn, Queens, and The Bronx, delivering swift and reliable solutions for residents. Our local team is dedicated to restoring your ovens, whether gas, electric, wall, double, dual fuel, induction, or freestanding models, to full functionality with same-day service, ensuring your cooking routine stays on track. Whether you’re in a Manhattan family home, an apartment, a business, or a residence, we offer precise repairs to keep your oven performing at its best.</p>
@@ -461,10 +768,10 @@
                                     </ul>
                                     <p>Benefits of Our Oven Repair:</p>
                                     <ul>
-                                        <li><strong>Fast Turnaround:</strong> We value your time. That’s why we offer speedy service with same-day availability, getting your oven back up and running without delay.</li>
-                                        <li><strong>Trained Specialists:</strong> Our technicians are highly skilled in oven systems, using genuine parts to ensure repairs are built to last.</li>
-                                        <li><strong>Community-Centered Service:</strong> As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
-                                        <li><strong>Thorough Problem-Solving:</strong> We tackle everything from heating element failures to digital control glitches, ensuring your oven runs reliably.</li>
+                                        <li>Fast Turnaround: We value your time. That’s why we offer speedy service with same-day availability, getting your oven back up and running without delay.</li>
+                                        <li>Trained Specialists: Our technicians are highly skilled in oven systems, using genuine parts to ensure repairs are built to last.</li>
+                                        <li>Community-Centered Service: As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
+                                        <li>Thorough Problem-Solving: We tackle everything from heating element failures to digital control glitches, ensuring your oven runs reliably.</li>
                                     </ul>
                                     <p>Types of Ovens We Repair:</p>
                                     <ul>
@@ -487,12 +794,12 @@
                         <div class="service-item">
                             <button class="cta-button" onclick="toggleSection('dishwasherContent')" aria-label="Toggle dishwasher repair details">
                                 <span class="icon">🍽️</span>
-                                <h3>Dishwasher Repair</h3>
+                                <h3>Dishwasher Repair Service</h3>
                             </button>
                             <div class="service-detail" id="dishwasherContent">
                                 <p>Expert Service for All Models: Freestanding, Built-In, Front Control, Top Control, Portable, Fully Integrated & Tall Tub Models.</p>
                                 <p>Dishwasher Repair Service in Manhattan, Brooklyn, Queens & The Bronx</p>
-                                <button class="cta-button" onclick="toggleDropdown('dishwasherDropdown')">Learn More</button>
+                                <button class="cta-button" id="dishwasherDropdownButton" onclick="toggleDropdown('dishwasherDropdown')">Learn More</button>
                                 <div id="dishwasherDropdown" class="dropdown-content" style="display: none;">
                                     <h3>Dishwasher Repair Services in Manhattan, Brooklyn, Queens & The Bronx</h3>
                                     <p>We provide specialized dishwasher repair services throughout Manhattan, Brooklyn, Queens, and The Bronx, delivering swift and reliable solutions for residents. Our local team is dedicated to restoring your dishwashers, whether freestanding, built-in, front control, top control, portable, fully integrated, or tall tub models, to full functionality with same-day service, ensuring your dish-washing routine stays on track. Whether you’re in a Manhattan family home, an apartment, a business, or a residence, we offer precise repairs to keep your dishwasher performing at its best.</p>
@@ -505,10 +812,10 @@
                                     </ul>
                                     <p>Benefits of Our Dishwasher Repair:</p>
                                     <ul>
-                                        <li><strong>Fast Turnaround:</strong> We value your time. That’s why we offer speedy service with same-day availability, getting your dishwasher back up and running without delay.</li>
-                                        <li><strong>Trained Specialists:</strong> Our technicians are highly skilled in dishwasher systems, using genuine parts to ensure repairs are built to last.</li>
-                                        <li><strong>Community-Centered Service:</strong> As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
-                                        <li><strong>Thorough Problem-Solving:</strong> We tackle everything from pump failures to digital control glitches, ensuring your dishwasher runs reliably.</li>
+                                        <li>Fast Turnaround: We value your time. That’s why we offer speedy service with same-day availability, getting your dishwasher back up and running without delay.</li>
+                                        <li>Trained Specialists: Our technicians are highly skilled in dishwasher systems, using genuine parts to ensure repairs are built to last.</li>
+                                        <li>Community-Centered Service: As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
+                                        <li>Thorough Problem-Solving: We tackle everything from pump failures to digital control glitches, ensuring your dishwasher runs reliably.</li>
                                     </ul>
                                     <p>Types of Dishwashers We Repair:</p>
                                     <ul>
@@ -530,12 +837,12 @@
                         <div class="service-item">
                             <button class="cta-button" onclick="toggleSection('refrigeratorContent')" aria-label="Toggle refrigerator repair details">
                                 <span class="icon">❄️</span>
-                                <h3>Refrigerator Repair</h3>
+                                <h3>Refrigerator Repair Service</h3>
                             </button>
                             <div class="service-detail" id="refrigeratorContent">
                                 <p>Expert Service for All Models: Top Freezer, Bottom Freezer, French Door, Side-by-Side, Undercounter, Quad Door, Built-In & Counter-Depth Models.</p>
                                 <p>Refrigerator Repair Service in Manhattan, Brooklyn, Queens & The Bronx</p>
-                                <button class="cta-button" onclick="toggleDropdown('refrigeratorDropdown')">Learn More</button>
+                                <button class="cta-button" id="refrigeratorDropdownButton" onclick="toggleDropdown('refrigeratorDropdown')">Learn More</button>
                                 <div id="refrigeratorDropdown" class="dropdown-content" style="display: none;">
                                     <h3>Refrigerator Repair Services in Manhattan, Brooklyn, Queens & The Bronx</h3>
                                     <p>We provide specialized refrigerator repair services throughout Manhattan, Brooklyn, Queens, and The Bronx, delivering swift and reliable solutions for residents. Our local team is dedicated to restoring your refrigerators, whether top freezer, bottom freezer, French door, side-by-side, undercounter, quad door, built-in, or counter-depth models, to full functionality with same-day service, ensuring your food storage routine stays on track. Whether you’re in a Manhattan family home, an apartment, a business, or a residence, we offer precise repairs to keep your refrigerator performing at its best.</p>
@@ -548,10 +855,10 @@
                                     </ul>
                                     <p>Benefits of Our Refrigerator Repair:</p>
                                     <ul>
-                                        <li><strong>Fast Turnaround:</strong> We value your time. That’s why we offer speedy service with same-day availability, getting your refrigerator back up and running without delay.</li>
-                                        <li><strong>Trained Specialists:</strong> Our technicians are highly skilled in refrigerator systems, using genuine parts to ensure repairs are built to last.</li>
-                                        <li><strong>Community-Centered Service:</strong> As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
-                                        <li><strong>Thorough Problem-Solving:</strong> We tackle everything from compressor failures to digital control glitches, ensuring your refrigerator runs reliably.</li>
+                                        <li>Fast Turnaround: We value your time. That’s why we offer speedy service with same-day availability, getting your refrigerator back up and running without delay.</li>
+                                        <li>Trained Specialists: Our technicians are highly skilled in refrigerator systems, using genuine parts to ensure repairs are built to last.</li>
+                                        <li>Community-Centered Service: As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
+                                        <li>Thorough Problem-Solving: We tackle everything from compressor failures to digital control glitches, ensuring your refrigerator runs reliably.</li>
                                     </ul>
                                     <p>Types of Refrigerators We Repair:</p>
                                     <ul>
@@ -574,12 +881,12 @@
                         <div class="service-item">
                             <button class="cta-button" onclick="toggleSection('wineCoolerContent')" aria-label="Toggle wine cooler repair details">
                                 <span class="icon">🍷</span>
-                                <h3>Wine Cooler Repair</h3>
+                                <h3>Wine Cooler Repair Service</h3>
                             </button>
                             <div class="service-detail" id="wineCoolerContent">
                                 <p>Expert Service for All Models: Freestanding, Single Zone, Countertop, Compressor Thermoelectric, Wine Cabinets, Dual Zone Wine Coolers.</p>
                                 <p>Wine Cooler Repair Service in Manhattan, Brooklyn, Queens & The Bronx</p>
-                                <button class="cta-button" onclick="toggleDropdown('wineCoolerDropdown')">Learn More</button>
+                                <button class="cta-button" id="wineCoolerDropdownButton" onclick="toggleDropdown('wineCoolerDropdown')">Learn More</button>
                                 <div id="wineCoolerDropdown" class="dropdown-content" style="display: none;">
                                     <h3>Wine Cooler Repair Services in Manhattan, Brooklyn, Queens & The Bronx</h3>
                                     <p>We provide specialized wine cooler repair services throughout Manhattan, Brooklyn, Queens, and The Bronx, delivering swift and reliable solutions for residents. Our local team is dedicated to restoring your wine coolers, whether freestanding, single zone, countertop, compressor thermoelectric, wine cabinets, or dual zone models, to full functionality with same-day service, ensuring your wine storage routine stays on track. Whether you’re in a Manhattan family home, an apartment, a business, or a residence, we offer precise repairs to keep your wine cooler performing at its best.</p>
@@ -592,10 +899,10 @@
                                     </ul>
                                     <p>Benefits of Our Wine Cooler Repair:</p>
                                     <ul>
-                                        <li><strong>Fast Turnaround:</strong> We value your time. That’s why we offer speedy service with same-day availability, getting your wine cooler back up and running without delay.</li>
-                                        <li><strong>Trained Specialists:</strong> Our technicians are highly skilled in wine cooler systems, using genuine parts to ensure repairs are built to last.</li>
-                                        <li><strong>Community-Centered Service:</strong> As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
-                                        <li><strong>Thorough Problem-Solving:</strong> We tackle everything from compressor failures to digital control glitches, ensuring your wine cooler runs reliably.</li>
+                                        <li>Fast Turnaround: We value your time. That’s why we offer speedy service with same-day availability, getting your wine cooler back up and running without delay.</li>
+                                        <li>Trained Specialists: Our technicians are highly skilled in wine cooler systems, using genuine parts to ensure repairs are built to last.</li>
+                                        <li>Community-Centered Service: As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
+                                        <li>Thorough Problem-Solving: We tackle everything from compressor failures to digital control glitches, ensuring your wine cooler runs reliably.</li>
                                     </ul>
                                     <p>Types of Wine Coolers We Repair:</p>
                                     <ul>
@@ -616,12 +923,12 @@
                         <div class="service-item">
                             <button class="cta-button" onclick="toggleSection('microwaveContent')" aria-label="Toggle microwave repair details">
                                 <span class="icon">🍲</span>
-                                <h3>Microwave Repair</h3>
+                                <h3>Microwave Repair Service</h3>
                             </button>
                             <div class="service-detail" id="microwaveContent">
                                 <p>Expert Service for All Models: Countertop, Built-In, Over-the-Range, Grill, and Smart Microwaves.</p>
                                 <p>Microwave Repair Service in Manhattan, Brooklyn, Queens & The Bronx</p>
-                                <button class="cta-button" onclick="toggleDropdown('microwaveDropdown')">Learn More</button>
+                                <button class="cta-button" id="microwaveDropdownButton" onclick="toggleDropdown('microwaveDropdown')">Learn More</button>
                                 <div id="microwaveDropdown" class="dropdown-content" style="display: none;">
                                     <h3>Microwave Repair Services in Manhattan, Brooklyn, Queens & The Bronx</h3>
                                     <p>We provide specialized microwave repair services throughout Manhattan, Brooklyn, Queens, and The Bronx, delivering swift and reliable solutions for residents. Our local team is dedicated to restoring your microwaves, whether countertop, built-in, over-the-range, grill, or smart models, to full functionality with same-day service, ensuring your cooking routine stays on track. Whether you’re in a Manhattan family home, an apartment, a business, or a residence, we offer precise repairs to keep your microwave performing at its best.</p>
@@ -634,10 +941,10 @@
                                     </ul>
                                     <p>Benefits of Our Microwave Repair:</p>
                                     <ul>
-                                        <li><strong>Fast Turnaround:</strong> We value your time. That’s why we offer speedy service with same-day availability, getting your microwave back up and running without delay.</li>
-                                        <li><strong>Trained Specialists:</strong> Our technicians are highly skilled in microwave systems, using genuine parts to ensure repairs are built to last.</li>
-                                        <li><strong>Community-Centered Service:</strong> As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
-                                        <li><strong>Thorough Problem-Solving:</strong> We tackle everything from magnetron failures to digital control glitches, ensuring your microwave runs reliably.</li>
+                                        <li>Fast Turnaround: We value your time. That’s why we offer speedy service with same-day availability, getting your microwave back up and running without delay.</li>
+                                        <li>Trained Specialists: Our technicians are highly skilled in microwave systems, using genuine parts to ensure repairs are built to last.</li>
+                                        <li>Community-Centered Service: As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
+                                        <li>Thorough Problem-Solving: We tackle everything from magnetron failures to digital control glitches, ensuring your microwave runs reliably.</li>
                                     </ul>
                                     <p>Types of Microwaves We Repair:</p>
                                     <ul>
@@ -657,12 +964,12 @@
                         <div class="service-item">
                             <button class="cta-button" onclick="toggleSection('cooktopContent')" aria-label="Toggle cooktop repair details">
                                 <span class="icon">🍳</span>
-                                <h3>Cooktop Repair</h3>
+                                <h3>Cooktop Repair Service</h3>
                             </button>
                             <div class="service-detail" id="cooktopContent">
                                 <p>Expert Service for All Models: Gas, Electric, Induction, Downdraft, and Commercial-Style Cooktops.</p>
                                 <p>Cooktop Repair Service in Manhattan, Brooklyn, Queens & The Bronx</p>
-                                <button class="cta-button" onclick="toggleDropdown('cooktopDropdown')">Learn More</button>
+                                <button class="cta-button" id="cooktopDropdownButton" onclick="toggleDropdown('cooktopDropdown')">Learn More</button>
                                 <div id="cooktopDropdown" class="dropdown-content" style="display: none;">
                                     <h3>Cooktop Repair Services in Manhattan, Brooklyn, Queens & The Bronx</h3>
                                     <p>We provide specialized cooktop repair services throughout Manhattan, Brooklyn, Queens, and The Bronx, delivering swift and reliable solutions for residents. Our local team is dedicated to restoring your cooktops, whether gas, electric, induction, downdraft, or commercial-style models, to full functionality with same-day service, ensuring your cooking routine stays on track. Whether you’re in a Manhattan family home, an apartment, a business, or a residence, we offer precise repairs to keep your cooktop performing at its best.</p>
@@ -675,10 +982,10 @@
                                     </ul>
                                     <p>Benefits of Our Cooktop Repair:</p>
                                     <ul>
-                                        <li><strong>Fast Turnaround:</strong> We value your time. That’s why we offer speedy service with same-day availability, getting your cooktop back up and running without delay.</li>
-                                        <li><strong>Trained Specialists:</strong> Our technicians are highly skilled in cooktop systems, using genuine parts to ensure repairs are built to last.</li>
-                                        <li><strong>Community-Centered Service:</strong> As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
-                                        <li><strong>Thorough Problem-Solving:</strong> We tackle everything from burner failures to digital control glitches, ensuring your cooktop runs reliably.</li>
+                                        <li>Fast Turnaround: We value your time. That’s why we offer speedy service with same-day availability, getting your cooktop back up and running without delay.</li>
+                                        <li>Trained Specialists: Our technicians are highly skilled in cooktop systems, using genuine parts to ensure repairs are built to last.</li>
+                                        <li>Community-Centered Service: As a local Manhattan, Brooklyn, Queens, and The Bronx provider, we tailor our approach to the unique needs of residents.</li>
+                                        <li>Thorough Problem-Solving: We tackle everything from burner failures to digital control glitches, ensuring your cooktop runs reliably.</li>
                                     </ul>
                                     <p>Types of Cooktops We Repair:</p>
                                     <ul>
@@ -1065,21 +1372,91 @@
                 </div>
             </section>
 
-            <section class="section" id="contact" role="region" aria-label="Contact Us">
-                <h2>Contact Sears Appliance Repair</h2>
-                <button class="cta-button" onclick="toggleSection('contactContent')" aria-label="Toggle contact content">Get in Touch</button>
-                <div class="section-content" id="contactContent">
-                    <p>Contact us for expert appliance repair in Manhattan, Brooklyn, Queens, and The Bronx. Reach out via phone at <a href="tel:+17187171706">+1 (718) 717-1706</a> or email at <a href="mailto:info@searsappliancerepair.com">info@searsappliancerepair.com</a>.</p>
-                </div>
-            </section>
-
             <section class="section" id="guarantee-policy" role="region" aria-label="Guarantee Policy">
                 <h2>100% Or Your Money Back Guaranteed Policy</h2>
                 <button class="cta-button" onclick="toggleSection('guaranteePolicyContent')" aria-label="Toggle guarantee policy content">View Policy</button>
                 <div class="section-content" id="guaranteePolicyContent">
-                    <p>We understand the frustration of dealing with companies that charge for repairs they can’t complete or lack the expertise to get the job done right. At Sears Appliance Repair, we believe in <em>honest, reliable service</em> you can trust. That’s why we offer a <strong>100% Money-Back Guarantee</strong>.</p>
+                    <p>We understand the frustration of dealing with companies that charge for repairs they can’t complete or lack the expertise to get the job done right. At Sears Appliance Repair, we believe in <em>honest, reliable service</em> you can trust. That’s why we offer a 100% Money-Back Guarantee.</p>
                     <p>If we are unable to complete your appliance repair due to our own limitations or lack of expertise, you will receive a full refund—no questions asked. You should only pay for real results, not failed attempts.</p>
                     <p>We stand by our work, and your satisfaction is our top priority.</p>
+                    
+                    <h3>Our Commitment to Exceptional Service:</h3>
+                    <ul>
+                        <li>Fast, Dependable Service: Our expert technicians are strategically stationed across NYC for rapid response. This local presence ensures swift arrivals and dependable service when you need it most.</li>
+                        <li>Fully Stocked Service Vehicles: To ensure smooth and efficient repairs, our vehicles are equipped with essential genuine parts and comprehensive inventory, supported by advanced route dispatch software. This means we're prepared to fix most issues on the first visit.</li>
+                        <li>Same-Day Repairs: We carry common parts to complete most repairs on the spot, allowing us to often achieve same-day fixes and minimize your appliance's downtime.</li>
+                        <li>Comprehensive Warranty: We stand by our work with a full warranty on all repairs. If any issues arise related to our service, we're here to make it right promptly and effectively.</li>
+                        <li>Diagnostic Charge as Credit: The diagnostic charge you pay goes directly toward your repair cost, ensuring you save money on your final bill by crediting it fully to the completed service.</li>
+                        <li>Expert Technicians: All our technicians are certified, highly experienced, and undergo ongoing training to stay current with the latest repair techniques and appliance models.</li>
+                        <li>Transparent Pricing: We offer clear, upfront pricing with no hidden fees. You'll know exactly what you're paying for before any work begins, ensuring complete financial transparency.</li>
+                        <li>Emergency Services Available: We're ready to handle urgent repairs with prompt and efficient service when you need us most, providing peace of mind for critical appliance breakdowns.</li>
+                        <li>Quality Parts and Equipment: We use only genuine, high-quality parts and state-of-the-art equipment to ensure durable repairs that meet original factory standards, enhancing the longevity of your appliance.</li>
+                        <li>Responsive Customer Support: Our dedicated customer support team is available to answer your questions and schedule your repairs with ease, ensuring a smooth and helpful experience from your first call.</li>
+                        <li>Flexible Scheduling: We offer convenient scheduling options, including weekends, to fit seamlessly into your busy lifestyle, making appliance repair as convenient as possible.</li>
+                        <li>Price Match Guarantee: We value your business and aim to provide the best value. We will match competitor pricing for the same repair to ensure you get a fair and competitive rate.</li>
+                        <li>Money-Back Guarantee: Our ultimate assurance: If we can't fix your appliance, you don't pay. This policy reinforces our commitment to delivering results, not just attempts.</li>
+                    </ul>
+                    <p>Our commitment to providing exceptional appliance repair service is designed to give you complete confidence and peace of mind.</p>
+                </div>
+            </section>
+
+            <section class="section" id="contact" role="region" aria-label="Contact Us">
+                <div class="modal-overlay" id="modalOverlay"></div>
+                <div class="modal" id="successModal" role="dialog" aria-labelledby="modalMessage" aria-hidden="true">
+                    <p id="modalMessage">Your email has been sent. A representative will contact you within 30 minutes to schedule your repair!</p>
+                    <button class="close-button" id="closeModal" aria-label="Close notification">Close</button>
+                </div>
+                <div class="contact-form-section" role="region" aria-label="Contact Us Form">
+                    <h2>Contact Sears Appliance Repair</h2>
+                    <p class="expect-text">What to Expect: Once you submit your request, a representative will contact you within 30 minutes to discuss available dates, service details, and associated charges before confirming your appointment.</p>
+                    <form id="contactForm" class="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="name">Name <span aria-hidden="true">*</span></label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required aria-describedby="nameError" aria-required="true">
+                            <span id="nameError" class="error-message">Please enter your name.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email <span aria-hidden="true">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required aria-describedby="emailError" aria-required="true">
+                            <span id="emailError" class="error-message">Please enter a valid email address.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone <span aria-hidden="true">*</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required pattern="[0-9]{10}" aria-describedby="phoneError" aria-required="true">
+                            <span id="phoneError" class="error-message">Please enter a valid 10-digit phone number.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address <span aria-hidden="true">*</span></label>
+                            <textarea id="address" name="address" placeholder="Your Address" required aria-describedby="addressError" aria-required="true"></textarea>
+                            <span id="addressError" class="error-message">Please enter your address.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject <span aria-hidden="true">*</span></label>
+                            <select id="subject" name="subject" required aria-describedby="subjectError" aria-required="true">
+                                <option value="">Select a Subject</option>
+                                <option value="washer_repair">Washer Repair</option>
+                                <option value="dryer_repair">Dryer Repair</option>
+                                <option value="oven_repair">Oven Repair</option>
+                                <option value="cooktop_repair">Cooktop Repair</option>
+                                <option value="dishwasher_repair">Dishwasher Repair</option>
+                                <option value="wine_cooler_repair">Wine Cooler Repair</option>
+                                <option value="microwave_repair">Microwave Repair</option>
+                                <option value="refrigerator_repair">Refrigerator Repair</option>
+                                <option value="hood_vent_repair">Hood Vent Repair</option>
+                                <option value="installation">Installation</option>
+                                <option value="maintenance">Maintenance Service</option>
+                                <option value="multiple_appliances">Multiple Appliances</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <span id="subjectError" class="error-message">Please select a subject.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message <span aria-hidden="true">*</span></label>
+                            <textarea id="message" name="message" placeholder="Your Message" required aria-describedby="messageError" aria-required="true"></textarea>
+                            <span id="messageError" class="error-message">Please enter your message.</span>
+                        </div>
+                        <button type="submit" class="form-button" aria-label="Submit contact form">Send Message</button>
+                    </form>
                 </div>
             </section>
         </main>
@@ -1097,7 +1474,7 @@
                         <ul class="quick-links-list">
                             <li><a href="#home" class="footer-link">Home</a></li>
                             <li><a href="#services" class="footer-link">Services</a></li>
-                            <li><a href="#service-areas" class="footer-link">Serving All Manhattan, Brooklyn, Queens & The Bronx Neighborhoods</a></li>
+                            <li><a href="#service-areas">Serving All Manhattan, Brooklyn, Queens & The Bronx Neighborhoods</a></li>
                         </ul>
                         <ul class="quick-links-list">
                             <li><a href="#brands" class="footer-link">Brands We Service</a></li>
@@ -1140,7 +1517,6 @@
             <span class="floater-text">Book Now</span>
         </a>
 
-        <!-- Review Badge -->
         <div class="review-badge" aria-label="Over 1,000 customer reviews">
             <i class="fas fa-star"></i>
             Over 1,000 Reviews
@@ -1190,31 +1566,80 @@
         });
 
         function toggleSection(id) {
-            document.querySelectorAll('.service-detail').forEach(detail => {
-                detail.classList.remove('active');
-            });
-            document.querySelectorAll('.cta-button').forEach(button => {
-                button.classList.remove('active');
-            });
+            const mainSectionContents = ['serviceAreasContent', 'brandsContent', 'additionalServicesContent', 'reviewsContent', 'aboutContent', 'contactContent', 'guaranteePolicyContent'];
+            const serviceDetails = ['washingMachineContent', 'dryerContent', 'ovenContent', 'dishwasherContent', 'refrigeratorContent', 'wineCoolerContent', 'microwaveContent', 'cooktopContent'];
 
-            const content = document.getElementById(id);
-            if (content.classList.contains('service-detail')) {
-                content.classList.toggle('active');
+            // Handle individual service details toggling
+            if (serviceDetails.includes(id)) {
+                document.querySelectorAll('.service-detail').forEach(detail => {
+                    if (detail.id !== id) {
+                        detail.classList.remove('active');
+                        // No text change for service item buttons, only for "Learn More" dropdowns
+                    }
+                });
+
+                const content = document.getElementById(id);
+                const button = content.previousElementSibling; // This is the service button (e.g., Washing Machine Repair Service)
+                // For the main service item buttons, we explicitly do NOT change text to "Show Less".
+                
+                if (content.classList.contains('active')) {
+                    content.classList.remove('active');
+                    button.classList.remove('active');
+                } else {
+                    content.classList.add('active');
+                    button.classList.add('active');
+                }
+                return; // Exit to prevent further toggling
+            }
+
+            // Handle main section content toggling
+            if (mainSectionContents.includes(id)) {
+                mainSectionContents.forEach(contentId => {
+                    if (contentId !== id) {
+                        const otherContent = document.getElementById(contentId);
+                        const otherButton = otherContent ? otherContent.previousElementSibling : null;
+                        if (otherContent && otherContent.classList.contains('active')) {
+                            otherContent.classList.remove('active');
+                            if (otherButton) {
+                                const originalText = otherButton.getAttribute('data-original-text');
+                                otherButton.textContent = originalText;
+                                otherButton.classList.remove('active');
+                            }
+                        }
+                    }
+                });
+
+                const content = document.getElementById(id);
                 const button = content.previousElementSibling;
-                button.classList.toggle('active');
-            } else {
-                content.classList.toggle('active');
-                const button = content.previousElementSibling;
-                button.classList.toggle('active');
+                const originalText = button.getAttribute('data-original-text') || button.textContent; // Store original text
+
+                if (content.classList.contains('active')) {
+                    content.classList.remove('active');
+                    button.textContent = originalText; // Revert to original text
+                    button.classList.remove('active');
+                } else {
+                    content.classList.add('active');
+                    button.setAttribute('data-original-text', originalText); // Save original text
+                    button.textContent = "Show Less"; // Change text to Show Less
+                    button.classList.add('active');
+                }
             }
         }
 
+
         function toggleDropdown(id) {
             var dropdown = document.getElementById(id);
-            if (dropdown.style.display === "none") {
+            var button = dropdown.previousElementSibling; // The "Learn More" button for dropdowns
+            var originalButtonText = button.getAttribute('data-original-text-dropdown') || button.textContent;
+
+
+            if (dropdown.style.display === "none" || dropdown.style.display === "") {
                 dropdown.style.display = "block";
+                button.setAttribute('data-original-text-dropdown', originalButtonText); // Store original text
+                button.textContent = "Show Less"; // Change text to Show Less
             } else {
                 dropdown.style.display = "none";
+                button.textContent = originalButtonText; // Revert to original text
             }
         }
 
@@ -1242,6 +1667,126 @@
             });
             observer.observe(reviewsContent, { childList: true, subtree: true });
         }
+
+        // Initialize servicesContent to always be active on load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('servicesContent').classList.add('active');
+            // Remove the 'View Services' button as services are always visible
+            const viewServicesButton = document.querySelector('#services > .cta-button:first-of-type');
+            if (viewServicesButton) {
+                viewServicesButton.remove();
+            }
+
+            // Contact Form JavaScript
+            const form = document.getElementById('contactForm');
+            const modal = document.getElementById('successModal');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const closeModalButton = document.getElementById('closeModal');
+
+            if (!form) {
+                console.error("Form element with ID 'contactForm' not found");
+                return;
+            }
+            if (!modal || !modalOverlay || !closeModalButton) {
+                console.error("Modal elements not found");
+                return;
+            }
+
+            function showModal() {
+                console.log("Showing success modal");
+                modal.classList.add('show');
+                modalOverlay.classList.add('show');
+                modal.setAttribute('aria-hidden', 'false');
+                closeModalButton.focus();
+                setTimeout(hideModal, 3000); // Auto-dismiss after 3 seconds
+            }
+
+            function hideModal() {
+                console.log("Hiding success modal");
+                modal.classList.remove('show');
+                modalOverlay.classList.remove('show');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+
+            closeModalButton.addEventListener('click', hideModal);
+            modalOverlay.addEventListener('click', hideModal);
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log("Form submission triggered");
+
+                let isValid = true;
+                let errorMessage = "";
+                const formGroups = form.querySelectorAll('.form-group');
+                formGroups.forEach(group => {
+                    group.classList.remove('invalid');
+                });
+
+                const nameInput = form.querySelector('#name');
+                const name = nameInput.value.trim();
+                if (!name) {
+                    nameInput.parentElement.classList.add('invalid');
+                    isValid = false;
+                    errorMessage += "Name is required.\n";
+                }
+
+                const emailInput = form.querySelector('#email');
+                const email = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!email || !emailRegex.test(email)) {
+                    emailInput.parentElement.classList.add('invalid');
+                    isValid = false;
+                    errorMessage += "Valid email is required.\n";
+                }
+
+                const phoneInput = form.querySelector('#phone');
+                const phone = phoneInput.value.trim();
+                const phoneRegex = /^[0-9]{10}$/;
+                if (!phone || !phoneRegex.test(phone)) {
+                    phoneInput.parentElement.classList.add('invalid');
+                    isValid = false;
+                    errorMessage += "Valid 10-digit phone number is required.\n";
+                }
+
+                const addressInput = form.querySelector('#address');
+                const address = addressInput.value.trim();
+                if (!address) {
+                    addressInput.parentElement.classList.add('invalid');
+                    isValid = false;
+                    errorMessage += "Address is required.\n";
+                }
+
+                const subjectInput = form.querySelector('#subject');
+                const subject = subjectInput.value;
+                if (!subject) {
+                    subjectInput.parentElement.classList.add('invalid');
+                    isValid = false;
+                    errorMessage += "Subject is required.\n";
+                }
+
+                const messageInput = form.querySelector('#message');
+                const message = messageInput.value.trim();
+                if (!message) {
+                    messageInput.parentElement.classList.add('invalid');
+                    isValid = false;
+                    errorMessage += "Message is required.\n";
+                }
+
+                if (!isValid) {
+                    alert("Please correct the following errors:\n" + errorMessage);
+                    return;
+                }
+
+                emailjs.sendForm('service_emxksio', 'template_tmexlql', form)
+                    .then(() => {
+                        showModal();
+                        form.reset();
+                    }, (error) => {
+                        console.error("Failed to send email:", error);
+                        alert('Failed to send the message. Please try again later or contact us directly at (718) 717-1706. Error: ' + error.text);
+                    });
+            });
+        });
     </script>
 </body>
 </html>
