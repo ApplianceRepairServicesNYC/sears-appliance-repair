@@ -305,6 +305,7 @@
             #guarantee-policy .section-content::before, #additional-services .section-content::before {font-size: 1.2rem; padding: 0.3rem 0.8rem;}
             #guarantee-policy .section-content p, #additional-services .section-content li {font-size: 0.9rem;}
         }
+        /* --- Floater positioning (copied exact from provided working code) --- */
         .phone-floater {
             position: fixed;
             bottom: 20px;
@@ -338,19 +339,6 @@
             font-weight: 600;
             color: #FFFFFF;
         }
-        @media (max-width: 480px) {
-            .phone-floater {
-                height: 48px !important;
-                padding: 0.5rem 1rem !important;
-                display: flex !important;
-            }
-            .phone-floater span.icon {
-                font-size: 1.3rem;
-            }
-            .phone-floater span.floater-text {
-                font-size: 0.9rem;
-            }
-        }
         .review-badge {
             position: fixed;
             bottom: 20px;
@@ -382,10 +370,24 @@
 
         @media (max-width: 768px) {
             .review-badge {
-                font-size: 1.1rem;
+                font-size: 14px;
                 padding: 10px 16px;
             }
         }
+        @media (max-width: 480px) {
+            .phone-floater {
+                height: 48px !important;
+                padding: 0.5rem 1rem !important;
+                display: flex !important;
+            }
+            .phone-floater span.icon {
+                font-size: 1.3rem;
+            }
+            .phone-floater span.floater-text {
+                font-size: 0.9rem;
+            }
+        }
+        /* End Floater positioning */
 
         /* Responsive adjustments for service buttons */
         @media (min-width: 769px) {
@@ -434,13 +436,9 @@
             z-index: 10;
             animation: fadeIn 1s ease-out;
         }
+        /* Specific rule to make contact form h2 white */
         .contact-form-section h2 {
-            text-align: center;
-            font-family: 'Montserrat', sans-serif; /* Consistent font */
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            color: #FFFFFF; /* Now explicitly set to white */
+            color: #FFFFFF; /* Explicitly set to white */
         }
         .contact-form-section .expect-text {
             text-align: center;
@@ -710,7 +708,7 @@
                                 <h3>Dryer Repair Service</h3>
                             </button>
                             <div class="service-detail" id="dryerContent">
-                                <p>Expert Service for All Models: Gas, Electric, Vented, Ventless, Heat Pump, Top-Load, Front-Load, Stackable & All-in-One Combo Units.</p>
+                                <p>Expert service for all models – all-in-one combo, top load, front load, stacked laundry centers.</p>
                                 <p>Dryer Repair Service in Manhattan, Brooklyn, Queens & The Bronx</p>
                                 <button class="cta-button" id="dryerDropdownButton" onclick="toggleDropdown('dryerDropdown')">Learn More</button>
                                 <div id="dryerDropdown" class="dropdown-content" style="display: none;">
@@ -1387,7 +1385,7 @@
                         <li>Same-Day Repairs: We carry common parts to complete most repairs on the spot, allowing us to often achieve same-day fixes and minimize your appliance's downtime.</li>
                         <li>Comprehensive Warranty: We stand by our work with a full warranty on all repairs. If any issues arise related to our service, we're here to make it right promptly and effectively.</li>
                         <li>Diagnostic Charge as Credit: The diagnostic charge you pay goes directly toward your repair cost, ensuring you save money on your final bill by crediting it fully to the completed service.</li>
-                        <li>Expert Technicians: All our technicians are certified, highly experienced, and undergo ongoing training to stay current with the latest repair techniques and appliance models.</li>
+                        <li>Expert Technicians: All our technicians are certified, highly experienced; and undergo ongoing training to stay current with the latest repair techniques and appliance models.</li>
                         <li>Transparent Pricing: We offer clear, upfront pricing with no hidden fees. You'll know exactly what you're paying for before any work begins, ensuring complete financial transparency.</li>
                         <li>Emergency Services Available: We're ready to handle urgent repairs with prompt and efficient service when you need us most, providing peace of mind for critical appliance breakdowns.</li>
                         <li>Quality Parts and Equipment: We use only genuine, high-quality parts and state-of-the-art equipment to ensure durable repairs that meet original factory standards, enhancing the longevity of your appliance.</li>
@@ -1407,7 +1405,7 @@
                     <button class="close-button" id="closeModal" aria-label="Close notification">Close</button>
                 </div>
                 <div class="contact-form-section" role="region" aria-label="Contact Us Form">
-                    <h2>Contact Sears Appliance Repair</h2>
+                    <h2 style="color: white;">Contact Sears Appliance Repair</h2>
                     <p class="expect-text">What to Expect: Once you submit your request, a representative will contact you within 30 minutes to discuss available dates, service details, and associated charges before confirming your appointment.</p>
                     <form id="contactForm" class="contact-form" novalidate>
                         <div class="form-group">
@@ -1574,13 +1572,19 @@
                 document.querySelectorAll('.service-detail').forEach(detail => {
                     if (detail.id !== id) {
                         detail.classList.remove('active');
-                        // No text change for service item buttons, only for "Learn More" dropdowns
+                        // Reset 'Learn More' button text to original if it's not the one being toggled
+                        const learnMoreButton = detail.querySelector('.cta-button'); // Find the "Learn More" button within the detail
+                        if (learnMoreButton) {
+                            const originalLearnMoreText = learnMoreButton.getAttribute('data-original-text-dropdown');
+                            if (originalLearnMoreText) {
+                                learnMoreButton.textContent = originalLearnMoreText;
+                            }
+                        }
                     }
                 });
 
                 const content = document.getElementById(id);
                 const button = content.previousElementSibling; // This is the service button (e.g., Washing Machine Repair Service)
-                // For the main service item buttons, we explicitly do NOT change text to "Show Less".
                 
                 if (content.classList.contains('active')) {
                     content.classList.remove('active');
@@ -1592,7 +1596,7 @@
                 return; // Exit to prevent further toggling
             }
 
-            // Handle main section content toggling
+            // Handle main section content toggling (like View Service Areas, Read Reviews etc.)
             if (mainSectionContents.includes(id)) {
                 mainSectionContents.forEach(contentId => {
                     if (contentId !== id) {
@@ -1602,7 +1606,9 @@
                             otherContent.classList.remove('active');
                             if (otherButton) {
                                 const originalText = otherButton.getAttribute('data-original-text');
-                                otherButton.textContent = originalText;
+                                if (originalText) {
+                                    otherButton.textContent = originalText;
+                                }
                                 otherButton.classList.remove('active');
                             }
                         }
